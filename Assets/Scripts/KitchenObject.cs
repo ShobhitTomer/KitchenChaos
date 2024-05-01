@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class KitchenObject : MonoBehaviour
 {
+    
     [SerializeField] private KitchenObjectsSO kitchenObjectsSO;
 
 
@@ -46,6 +47,19 @@ public class KitchenObject : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public bool TryGetPlate(out PlateKitchenObject plateKitchenObject)
+    {
+        if (this is PlateKitchenObject)
+        {
+            plateKitchenObject = this as PlateKitchenObject;
+            return true;
+        }
+        else
+        {
+            plateKitchenObject = null;
+            return false;
+        }
+    }
 
     public static KitchenObject SpawnKitchenObject(KitchenObjectsSO kitchenObjectsSO, IKitchenObjectParent kitchenObjectParent){
         Transform kitchenObjectTransform = Instantiate(kitchenObjectsSO.prefab); //We will have a clone of the visul of our prefab
