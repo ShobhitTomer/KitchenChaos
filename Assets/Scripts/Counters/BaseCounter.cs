@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,8 @@ public class BaseCounter : MonoBehaviour, IKitchenObjectParent
 {
     //Defined this parent class so that every counter can easily inherit the properties from this class
 
+    public static event EventHandler OnAnyObjectPlacedHere;
+    
     [SerializeField] private Transform counterTopPoint;
 
 
@@ -30,6 +33,11 @@ public class BaseCounter : MonoBehaviour, IKitchenObjectParent
     public void SetKitchenObject(KitchenObject kitchenObject) //Changing the kitchenobject to the one passed in the parameter
     {
         this.kitchenObject = kitchenObject;
+
+        if (kitchenObject != null)
+        {
+            OnAnyObjectPlacedHere?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     public KitchenObject GetKitchenObject() //getting the kitchenObject
